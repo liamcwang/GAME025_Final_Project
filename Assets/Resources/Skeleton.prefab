@@ -104,7 +104,7 @@ MonoBehaviour:
   hitBoxActive: 1
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 132
+    m_Bits: 4
   bounceAttack: 1
   bounceForce: {x: 20, y: 10}
   bounceTimer: 0.5
@@ -160,7 +160,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 542963679
-  m_SortingLayer: 2
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ae44d6ca9dc728943a492226b377d3f4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
