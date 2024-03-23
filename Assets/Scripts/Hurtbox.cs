@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Hurtbox : MonoBehaviour
 {
+    public bool isActive = true;
     public float health = 1f;
     [SerializeField] bool useNativeDeath = true;
     private Vector2 bounceForce = Vector2.zero;
+    
 
     
 
@@ -50,6 +52,8 @@ public class Hurtbox : MonoBehaviour
     }
 
     public void takeDamage(float n, bool useFlash = true) {
+        if (!isActive) return;
+        
         health -= n;
         if (allSprites.Count > 0 && !flashActive && useFlash) {
             flashActive = true;
@@ -63,6 +67,8 @@ public class Hurtbox : MonoBehaviour
     }
 
     public void takeDamageBounce(float n, Vector2 origin, Vector2 bounce, float bounceTimer) {
+        if (!isActive) return;
+
         takeDamage(n, false);
         if (player != null) player.loseControl(bounceTimer);
         

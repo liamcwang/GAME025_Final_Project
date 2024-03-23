@@ -220,6 +220,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 38122407360293339, guid: 529129afff710104280064fef76806eb, type: 3}
       insertIndex: 4
       addedObject: {fileID: 1255083985004822411}
+    - targetCorrespondingSourceObject: {fileID: 38122407360293339, guid: 529129afff710104280064fef76806eb, type: 3}
+      insertIndex: 5
+      addedObject: {fileID: 1513391358670223460}
   m_SourcePrefab: {fileID: 100100000, guid: 529129afff710104280064fef76806eb, type: 3}
 --- !u!1 &1264149468546876412 stripped
 GameObject:
@@ -244,7 +247,7 @@ MonoBehaviour:
   hitBoxActive: 1
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 68
+    m_Bits: 4
   bounceAttack: 0
   bounceForce: {x: 10, y: 10}
   bounceTimer: 0.5
@@ -260,9 +263,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fc8e7b4473a15489799dcf7f7d0bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isActive: 1
   health: 10
   useNativeDeath: 0
   flashTimer: 0.125
+--- !u!114 &1513391358670223460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264149468546876412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb7eeb834e568e4c8cf4564bd290242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashSpeed: 20
+  dashTimer: 0
 --- !u!4 &4129250786849747257 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2900971992723446558, guid: 529129afff710104280064fef76806eb, type: 3}

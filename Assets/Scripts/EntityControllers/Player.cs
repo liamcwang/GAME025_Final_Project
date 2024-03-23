@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum ActionState {IDLE, RUNNING, JUMPING, FALLING, ATTACK, NONE};
-public class Player: MonoBehaviour
+public enum ActionState {IDLE, RUNNING, JUMPING, FALLING, ATTACK, DASH, NONE};
+public class Player: EntityController
 {
     
-    public ActionState state;
-    public bool stateOverride;
     [HideInInspector] public Hurtbox hurtbox;
 
     private Animator anim;
     private Movement movement;
     private Attack attack;
-    private Vector2 motionInput = Vector2.zero;
+    private Dash dash;
+    public Vector2 motionInput = Vector2.zero;
 
     private void Awake()
     {
@@ -23,6 +22,7 @@ public class Player: MonoBehaviour
         anim = GetComponent<Animator>();
         attack = GetComponent<Attack>();
         hurtbox = GetComponent<Hurtbox>();
+        dash = GetComponent<Dash>();
     }
 
 
@@ -34,14 +34,22 @@ public class Player: MonoBehaviour
 
         ActionState newState = ActionState.NONE;
         if (Input.GetButtonDown("Attack")) {
-            attack.Act();
             stateOverride = true;
+            attack.Act();
         }
 
+
         if (newState == ActionState.NONE) {
-            motionInput.x = Input.GetAxis("Horizontal");
+            motionInput.x = Input.GetAxis("Horizontal"); // Just found out that this is not great for two inputs at a time
+            // TODO: Remake movement system to be smoother than getAxis
             motionInput.y = Input.GetButtonDown("Jump") ? 1 : 0;
-            newState = movement.Move(motionInput);
+
+            if (motionInput.x != 0 && Input.GetButtonDown("Dash")) {
+                stateOverride = true;
+                dash.Act(motionInput.x);
+            } else {
+                newState = movement.Move(motionInput);
+            }
             
         }
 

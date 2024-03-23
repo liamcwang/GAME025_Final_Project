@@ -99,6 +99,10 @@ public class Attack : MonoBehaviour
         hitBoxActive = true;
     }
 
+    /// <summary>
+    /// State override occurs during the end frames of the animation,
+    /// Place it at the end of the animation clip where the animation should end
+    /// </summary>
     public void deactivate() {
         hitBoxActive = false;
         if (player != null) {
