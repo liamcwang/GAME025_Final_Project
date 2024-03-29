@@ -226,7 +226,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6736131610857662639, guid: 378b37c738b12b3498c44ccbd1797bbf, type: 3}
       propertyPath: ignoreMask.m_Bits
-      value: 4
+      value: 68
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -247,7 +247,7 @@ GameObject:
   - component: {fileID: 1324068799}
   - component: {fileID: 1324068798}
   - component: {fileID: 1324068797}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5119,27 +5119,6 @@ MonoBehaviour:
   jumpHeight: 4.5
   jumpLimit: 1
   InvertFlipX: 0
---- !u!95 &1746858794530785087
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6109350161274889866}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!114 &2168226406924308055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5304,7 +5283,6 @@ GameObject:
   - component: {fileID: 4002543929647237929}
   - component: {fileID: 477792213096806218}
   - component: {fileID: 5599031666273144250}
-  - component: {fileID: 1746858794530785087}
   - component: {fileID: 8380471706486034807}
   - component: {fileID: 4956638654441739845}
   - component: {fileID: 9014120870411874133}

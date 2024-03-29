@@ -26,7 +26,9 @@ public class Enemy : EntityController
         }
         state = movement.Move(motionInput);
 
-        anim.SetInteger("ActionState", (int) state);
+        if (anim != null) {
+            anim.SetInteger("ActionState", (int) state);
+        }
     }
 
     /*private void OnTriggerEnter2D(Collider2D other)
