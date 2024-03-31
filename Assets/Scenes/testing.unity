@@ -401,7 +401,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5749761814297572332, guid: b3c882ec602169642903715055831e34, type: 3}
       propertyPath: m_Name
-      value: Destructable
+      value: Destructible
       objectReference: {fileID: 0}
     - target: {fileID: 6136311316687285478, guid: b3c882ec602169642903715055831e34, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2234,10 +2234,6 @@ PrefabInstance:
     - target: {fileID: 224903946600607440, guid: 378b37c738b12b3498c44ccbd1797bbf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1513391358670223460, guid: 378b37c738b12b3498c44ccbd1797bbf, type: 3}
-      propertyPath: dashTimer
-      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2672650071030589202, guid: 378b37c738b12b3498c44ccbd1797bbf, type: 3}
       propertyPath: m_Name

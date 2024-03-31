@@ -5,17 +5,17 @@ using UnityEngine;
 public class Enemy : EntityController
 {
     [HideInInspector] public AIBehavior[] behaviors;
-    [HideInInspector] public Vector2 motionInput = Vector2.zero;
 
     private Animator anim;
     private Movement movement;
-    
+    private SpriteRenderer sprite;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         movement = GetComponent<Movement>();
         behaviors = GetComponents<AIBehavior>();
+        sprite = GetComponent<SpriteRenderer>();
         //StartCoroutine(Patrol());
     }
 

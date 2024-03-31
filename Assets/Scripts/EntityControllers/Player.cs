@@ -8,12 +8,13 @@ public class Player: EntityController
 {
     
     [HideInInspector] public Hurtbox hurtbox;
+    public float sensitivity = 3;
 
     private Animator anim;
     private Movement movement;
     private Attack attack;
     private Dash dash;
-    public Vector2 motionInput = Vector2.zero;
+    private SpriteRenderer sprite;
 
     private void Awake()
     {
@@ -23,6 +24,7 @@ public class Player: EntityController
         attack = GetComponent<Attack>();
         hurtbox = GetComponent<Hurtbox>();
         dash = GetComponent<Dash>();
+        sprite = GetComponent<SpriteRenderer>();
     }
 
 
@@ -40,8 +42,8 @@ public class Player: EntityController
 
 
         if (newState == ActionState.NONE) {
-            motionInput.x = Input.GetAxis("Horizontal"); // Just found out that this is not great for two inputs at a time
-            // TODO: Remake movement system to be smoother than getAxis
+            // This solution works better than GetAxis("Horizontal") believe it or not.
+            motionInput.x = Input.GetAxis("Left") + Input.GetAxis("Right");
             motionInput.y = Input.GetButtonDown("Jump") ? 1 : 0;
 
             if (motionInput.x != 0 && Input.GetButtonDown("Dash")) {

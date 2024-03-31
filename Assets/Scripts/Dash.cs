@@ -22,13 +22,14 @@ public class Dash : MonoBehaviour
         ec = GetComponent<EntityController>();
         colliders = GetComponents<Collider2D>();
     }
-
+    // TODO: Fix sprite being able to dash backwards
     public void Act(float horizontalInput)
     {
         ec.state = ActionState.DASH;
         anim.Play("dash");
         motionVector.x = horizontalInput < 0 ? -dashSpeed : dashSpeed;
 
+        
         
         foreach (Collider2D coll in colliders) {
             coll.enabled = false;
