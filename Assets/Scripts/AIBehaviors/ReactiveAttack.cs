@@ -16,7 +16,7 @@ public class ReactiveAttack : AIBehavior
         canAttack = true;    
     }
 
-    public override void Act(Enemy e)
+    public override void Act()
     {
         if (canAttack) {
             bool playerFound = attack.SimulateCast();

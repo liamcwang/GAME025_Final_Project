@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class AIBehavior : MonoBehaviour
 {
-    public abstract void Act(Enemy e);
+    public abstract void Act();
 }

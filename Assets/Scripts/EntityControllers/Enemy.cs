@@ -22,7 +22,7 @@ public class Enemy : EntityController
     private void Update()
     {
         foreach (AIBehavior b in behaviors) {
-            b.Act(this);
+            b.Act();
         }
         state = movement.Move(motionInput);
 

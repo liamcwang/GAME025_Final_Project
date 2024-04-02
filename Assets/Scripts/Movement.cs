@@ -63,16 +63,20 @@ public class Movement : MonoBehaviour
         else if (rb.velocity.y > 0.01 && jumpCount > 0) 
         {
             motionState = ActionState.JUMPING;
-        } 
-        else 
-        {
-            // reaching this means we've landed
-            jumpCount = 0;
+        } else {
+            
         }
+
 
         return motionState;
 
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+            jumpCount = 0;
+        }
+    }
 
 }

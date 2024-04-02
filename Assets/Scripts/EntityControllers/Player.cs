@@ -36,7 +36,6 @@ public class Player: EntityController
 
         ActionState newState = ActionState.NONE;
         if (Input.GetButtonDown("Attack")) {
-            stateOverride = true;
             attack.Act();
         }
 
@@ -47,7 +46,6 @@ public class Player: EntityController
             motionInput.y = Input.GetButtonDown("Jump") ? 1 : 0;
 
             if (motionInput.x != 0 && Input.GetButtonDown("Dash")) {
-                stateOverride = true;
                 dash.Act(motionInput.x);
             } else {
                 newState = movement.Move(motionInput);

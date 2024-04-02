@@ -15,7 +15,7 @@ public class Attack : MonoBehaviour
     Vector2 visualDest = Vector2.zero;
     SpriteRenderer sprite;
     Animator anim;
-    Player player;
+    EntityController entity;
 
     [SerializeField]bool hitBoxActive = false;
     List<int> hitRecord = new List<int>();
@@ -30,11 +30,12 @@ public class Attack : MonoBehaviour
         hitBoxActive = false;
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        player = GetComponent<Player>();
+        entity = GetComponent<EntityController>();
     }
 
     public void Act()
     {
+        entity.stateOverride = true;
         hitRecord.Clear();
         anim.Play("attack");
     }
@@ -105,8 +106,8 @@ public class Attack : MonoBehaviour
     /// </summary>
     public void deactivate() {
         hitBoxActive = false;
-        if (player != null) {
-            player.stateOverride = false;
+        if (entity != null) {
+            entity.stateOverride = false;
         }
         
     }

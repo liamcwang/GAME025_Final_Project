@@ -5,9 +5,10 @@ using UnityEngine;
 public class ProjectileSpawner : MonoBehaviour
 {
     public GameObject projectile;
+    [SerializeField] LayerMask ignoreMask = Physics2D.IgnoreRaycastLayer;
 
     public void spawnProjectile(Vector3 position, Quaternion direction) {
-        Instantiate(projectile, position, direction);
+        GameObject gObj = Instantiate(projectile, position, direction);
+        Projectile pComponent = gObj.GetComponent<Projectile>();
     }
-
 }
