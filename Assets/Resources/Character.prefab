@@ -55,8 +55,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   stateOverride: 0
-  hurtbox: {fileID: 0}
   motionInput: {x: 0, y: 0}
+  hurtbox: {fileID: 0}
+  sensitivity: 3
 --- !u!114 &5281946286792319434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,7 +92,7 @@ MonoBehaviour:
   hitBoxActive: 1
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 68
+    m_Bits: 4
   bounceAttack: 0
   bounceForce: {x: 10, y: 10}
   bounceTimer: 0.5
