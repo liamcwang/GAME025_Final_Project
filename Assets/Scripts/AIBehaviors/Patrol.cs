@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Patrol : AIBehavior
 {
+    public override BehaviorType behaviorType {get {return BehaviorType.CONTINUOUS;}}
     [SerializeField] Vector2[] patrolPoints;
     [SerializeField] float waitTimer = 1f;
     bool patrolActive = true;

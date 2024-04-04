@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ReactiveAttack : AIBehavior
 {
+    public override BehaviorType behaviorType {get {return BehaviorType.CONTINUOUS;}}
     [SerializeField] float reactTimer;
     bool canAttack;
     Attack attack;

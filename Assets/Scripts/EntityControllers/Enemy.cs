@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Enemy : EntityController
 {
-    [HideInInspector] public AIBehavior[] behaviors;
-
+    [HideInInspector] public List<AIBehavior> continuousBehaviors = new List<AIBehavior>();
     private Animator anim;
     private Movement movement;
     private SpriteRenderer sprite;
@@ -14,14 +13,27 @@ public class Enemy : EntityController
     {
         anim = GetComponent<Animator>();
         movement = GetComponent<Movement>();
-        behaviors = GetComponents<AIBehavior>();
+        var behaviors = GetComponents<AIBehavior>();
+        foreach (var b in behaviors) {
+            switch (b.behaviorType)
+            {
+                case BehaviorType.ON_START:
+                    b.Act();
+                    break;
+                case BehaviorType.CONTINUOUS:
+                    continuousBehaviors.Add(b);
+                    break;
+                default:
+                    break;
+            }
         sprite = GetComponent<SpriteRenderer>();
         //StartCoroutine(Patrol());
+        }
     }
 
     private void Update()
     {
-        foreach (AIBehavior b in behaviors) {
+        foreach (AIBehavior b in continuousBehaviors) {
             b.Act();
         }
         state = movement.Move(motionInput);

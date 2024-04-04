@@ -2572,7 +2572,7 @@ MonoBehaviour:
   state: 0
   stateOverride: 0
   motionInput: {x: 0, y: 0}
-  behaviors: []
+  continuousBehaviors: []
 --- !u!95 &8998730894172532747
 Animator:
   serializedVersion: 5

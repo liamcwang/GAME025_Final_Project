@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
     [HideInInspector] public int jumpCount {get; private set;} = 0;
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
-    [SerializeField] bool InvertFlipX = false;
+    [SerializeField] bool InvertFlipX = false; // this may need to be put into the enemy script, and made into a method
     private float jumpForce;
     private Vector2 motionVector = Vector2.zero;
 
