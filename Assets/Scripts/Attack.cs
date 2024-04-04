@@ -117,12 +117,16 @@ public class Attack : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
-        boxSize3D.x = boxSize.x;
-        boxSize3D.y = boxSize.y;
+        if (!Application.isPlaying) {
+            boxSize3D.x = boxSize.x;
+            boxSize3D.y = boxSize.y;
+        }
         Gizmos.color = hitBoxActive ? Color.green : Color.clear;
 
-        visualDest.x = transform.position.x + (offset.x * direction.x);
-        visualDest.y = transform.position.y + offset.y;
+        if (!Application.isPlaying) {
+            visualDest.x = transform.position.x + (offset.x * direction.x);
+            visualDest.y = transform.position.y + offset.y;
+        }
         Gizmos.DrawWireCube(visualDest, boxSize3D);
     }
 }

@@ -14,7 +14,7 @@ public class Projectile : MonoBehaviour
     public float speed = 20;
     public float damage = 1;
     public float decayTimer = 5f;
-    public LayerMask ignoreLayer;
+    public LayerMask ignoreMask;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SpriteRenderer spriteRenderer;
 
@@ -46,7 +46,15 @@ public class Projectile : MonoBehaviour
     /// </summary>
     /// <param name="other"></param>
     private void OnTriggerEnter2D(Collider2D other) {
+        // checking layer collision, if it's in the ignoreMask, ignore it
+        if ((ignoreMask.value & (1 << other.gameObject.layer)) == 0) {
+            Hurtbox hurtBox = other.gameObject.GetComponent<Hurtbox>();
+            if (hurtBox != null) {
+                hurtBox.takeDamage(damage);
+            }
+            Destroy(gameObject);
 
+        }
     }
 
 }

@@ -13,7 +13,7 @@ public class Patrol : AIBehavior
     Vector2 currentPos = Vector2.zero;
     Vector2 heading = Vector2.zero;
 
-    Vector2 gizmosCubeSize = new Vector2(0.5f, 0.5f);
+    
 
     EntityController ec;
 
@@ -51,6 +51,8 @@ public class Patrol : AIBehavior
         patrolActive = true;
     }
 
+    #if UNITY_EDITOR
+    Vector2 gizmosCubeSize = new Vector2(0.5f, 0.5f);
     void OnDrawGizmosSelected()
     {
         if (patrolPoints.Length == 0) return;
@@ -66,4 +68,5 @@ public class Patrol : AIBehavior
             prev = next;
         }
     }
+    #endif
 }

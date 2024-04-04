@@ -88,6 +88,10 @@ public class Hurtbox : MonoBehaviour
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Function to cause the whole gameObject to flash
+    /// </summary>
+    /// <param name="timer"></param>
     IEnumerator DamageFlash(float timer) {
         int allSpriteLength = allSprites.Count;
         SpriteRenderer[] spriteArray = new SpriteRenderer[allSpriteLength];
