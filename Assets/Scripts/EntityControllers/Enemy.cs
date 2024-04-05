@@ -43,23 +43,4 @@ public class Enemy : EntityController
         }
     }
 
-    /*private void OnTriggerEnter2D(Collider2D other)
-    {
-        Player p = other.gameObject.GetComponent<Player>();
-        if (p != null) {
-            Destroy(gameObject);
-            GameManager.WinGame();
-        }    
-    }*/
-
-    /*
-    IEnumerator Patrol() {
-        while(true) {
-            yield return new WaitForSeconds(1f);
-            Debug.Log("Yep");
-            if (transform.position.x > 0)
-            motionInput.x = rightLeftSwitch ? 1 : -1;
-
-        }   
-    }*/
 }
