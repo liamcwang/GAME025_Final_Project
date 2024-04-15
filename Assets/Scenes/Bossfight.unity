@@ -9217,12 +9217,13 @@ GameObject:
   - component: {fileID: 7460039114319437915}
   - component: {fileID: 4002543929647237929}
   - component: {fileID: 9014120870411874134}
+  - component: {fileID: 9014120870411874135}
   - component: {fileID: 477792213096806218}
   - component: {fileID: 5599031666273144250}
   - component: {fileID: 8380471706486034807}
   - component: {fileID: 4956638654441739845}
   - component: {fileID: 9014120870411874133}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: EnemyTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9252,7 +9253,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6109350161274889866}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -9267,10 +9268,10 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!70 &9014120870411874133
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -9325,12 +9326,13 @@ MonoBehaviour:
       arguments:
       - 0
       - 0
-      - 2
+      - 4
   - name: Wait
     methodCall:
-      method: 1
+      method: 2
       arguments:
-      - 4
+      - 10
+      - 0.2
   - name: Move2
     methodCall:
       method: 0
@@ -9338,13 +9340,29 @@ MonoBehaviour:
       - -11.08
       - 7.66
       - 2
-  - name: Move2
+  - name: Move3
     methodCall:
       method: 0
       arguments:
       - 11.08
       - 7.66
       - 2
+--- !u!114 &9014120870411874135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109350161274889866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def6bcffb8f6bb14986a03b76e002452, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 8990282778137600070, guid: 584988c6e20ef45498c07195c8c3b903, type: 3}
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 68
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

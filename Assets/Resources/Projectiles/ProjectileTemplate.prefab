@@ -54,7 +54,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   rb: {fileID: -2349797622339523751}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: -3096447865885861714}
 --- !u!212 &-3096447865885861714
 SpriteRenderer:
   m_ObjectHideFlags: 0
