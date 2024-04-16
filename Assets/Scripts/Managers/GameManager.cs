@@ -8,9 +8,24 @@ public class GameManager
 {
     private static GameManager singletonInstance;
 
-    public Player Player;
-    public PlayerCamera PlayerCamera;
-    public CanvasManager Canvas;
+    #region INSTANCE_VARIABLES
+    private Player _player;
+    public static Player Player {
+        get => Instance._player;
+        set => Instance._player = value;
+    }
+    private PlayerCamera _playerCamera;
+    public static PlayerCamera PlayerCamera {
+        get => Instance._playerCamera;
+        set => Instance._playerCamera = value;
+    }
+    private CanvasController _canvas;
+    public static CanvasController Canvas {
+        get => Instance._canvas;
+        set => Instance._canvas = value;
+    }
+    #endregion
+
 
     public GameManager() {
 
@@ -35,7 +50,15 @@ public class GameManager
         SceneManager.LoadScene(sceneName);
     }
 
-    public static void WinGame(){
-        Instance.Canvas.WinScreen();
+    public static void Victory(){
+        Canvas.VictoryScreen();
+    }
+
+    public static void Defeat(){
+        Canvas.DefeatScreen();
+    }
+
+    public static void QuitGame(){
+        Application.Quit();
     }
 }

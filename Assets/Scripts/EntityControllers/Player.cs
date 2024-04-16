@@ -3,30 +3,33 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum ActionState {IDLE, RUNNING, JUMPING, FALLING, ATTACK, DASH, NONE};
-public class Player: EntityController
+public enum ActionState {IDLE, RUNNING, JUMPING, FALLING, ATTACK, NONE};
+public class Player: MonoBehaviour
 {
     
+    public ActionState state;
+    public bool stateOverride;
     [HideInInspector] public Hurtbox hurtbox;
-    public float sensitivity = 3;
 
     private Animator anim;
     private Movement movement;
     private Attack attack;
-    private Dash dash;
-    private SpriteRenderer sprite;
+    private Vector2 motionInput = Vector2.zero;
 
     private void Awake()
     {
-        GameManager.Instance.Player = this;
+        GameManager.Player = this;
         movement = GetComponent<Movement>();
         anim = GetComponent<Animator>();
         attack = GetComponent<Attack>();
         hurtbox = GetComponent<Hurtbox>();
-        dash = GetComponent<Dash>();
-        sprite = GetComponent<SpriteRenderer>();
+        hurtbox.onTakeDamage += HealthChanged;
     }
 
+    private void Start()
+    {
+        HealthChanged();
+    }
 
     // Update is called once per frame
     void Update()
@@ -37,19 +40,13 @@ public class Player: EntityController
         ActionState newState = ActionState.NONE;
         if (Input.GetButtonDown("Attack")) {
             attack.Act();
+            stateOverride = true;
         }
 
-
         if (newState == ActionState.NONE) {
-            // This solution works better than GetAxis("Horizontal") believe it or not.
-            motionInput.x = Input.GetAxis("Left") + Input.GetAxis("Right");
+            motionInput.x = Input.GetAxis("Horizontal");
             motionInput.y = Input.GetButtonDown("Jump") ? 1 : 0;
-
-            if (motionInput.x != 0 && Input.GetButtonDown("Dash")) {
-                dash.Act(motionInput.x);
-            } else {
-                newState = movement.Move(motionInput);
-            }
+            newState = movement.Move(motionInput);
             
         }
 
@@ -57,6 +54,11 @@ public class Player: EntityController
 
         anim.SetInteger("PlayerState", (int) state);   
         
+    }
+
+    public void HealthChanged() {
+        float healthRatio = hurtbox.health / hurtbox.maxHealth;
+        GameManager.Canvas.UpdateHealth(healthRatio);
     }
 
     public void Die() {
@@ -77,7 +79,7 @@ public class Player: EntityController
     IEnumerator DeathSequence() {
         anim.Play("death");
         yield return new WaitForSeconds(2f);
-        GameManager.RestartGame();
+        GameManager.Defeat();
     }
 }
 

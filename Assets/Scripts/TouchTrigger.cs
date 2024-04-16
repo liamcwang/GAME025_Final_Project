@@ -39,7 +39,7 @@ public class TouchTrigger : MonoBehaviour
                     p.Die();
                     break;
                 case TriggerType.WIN:
-                    GameManager.WinGame();
+                    GameManager.Victory();
                     break;
                 case TriggerType.ITEM:
                     ItemGet();

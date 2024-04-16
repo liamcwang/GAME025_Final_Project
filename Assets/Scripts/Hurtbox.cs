@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Hurtbox : MonoBehaviour
 {
-    public bool isActive = true;
-    public float health = 1f;
+    public float maxHealth = 10f;
+    public float health = 10f;
     [SerializeField] bool useNativeDeath = true;
     private Vector2 bounceForce = Vector2.zero;
-    
 
-    
+    public event Action onTakeDamage;
 
     [SerializeField] float flashTimer = 0.125f;
     private static Material flashMGlobal;
@@ -52,14 +52,13 @@ public class Hurtbox : MonoBehaviour
     }
 
     public void takeDamage(float n, bool useFlash = true) {
-        if (!isActive) return;
-        
         health -= n;
         if (allSprites.Count > 0 && !flashActive && useFlash) {
             flashActive = true;
             StartCoroutine(DamageFlash(flashTimer));
         }
 
+        onTakeDamage?.Invoke();
         
         if (useNativeDeath && health < 0.01) {
             Die();
@@ -67,8 +66,6 @@ public class Hurtbox : MonoBehaviour
     }
 
     public void takeDamageBounce(float n, Vector2 origin, Vector2 bounce, float bounceTimer) {
-        if (!isActive) return;
-
         takeDamage(n, false);
         if (player != null) player.loseControl(bounceTimer);
         
@@ -88,10 +85,6 @@ public class Hurtbox : MonoBehaviour
         Destroy(gameObject);
     }
 
-    /// <summary>
-    /// Function to cause the whole gameObject to flash
-    /// </summary>
-    /// <param name="timer"></param>
     IEnumerator DamageFlash(float timer) {
         int allSpriteLength = allSprites.Count;
         SpriteRenderer[] spriteArray = new SpriteRenderer[allSpriteLength];
