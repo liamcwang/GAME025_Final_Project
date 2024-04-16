@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum ActionState {IDLE, RUNNING, JUMPING, FALLING, ATTACK, NONE};
-public class Player: MonoBehaviour
+public enum ActionState {IDLE, RUNNING, JUMPING, FALLING, ATTACK, DASH, NONE};
+public class Player: EntityController
 {
     
-    public ActionState state;
-    public bool stateOverride;
     [HideInInspector] public Hurtbox hurtbox;
 
     private Animator anim;
     private Movement movement;
     private Attack attack;
-    private Vector2 motionInput = Vector2.zero;
 
     private void Awake()
     {
@@ -28,7 +25,7 @@ public class Player: MonoBehaviour
 
     private void Start()
     {
-        HealthChanged();
+
     }
 
     // Update is called once per frame

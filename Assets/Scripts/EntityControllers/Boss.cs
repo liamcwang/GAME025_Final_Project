@@ -29,7 +29,7 @@ public class Boss : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         projectileSpawner = GetComponent<ProjectileSpawner>();
-        playerRef = GameManager.Instance.Player;
+        playerRef = GameManager.Player;
         interpretCall(actionPatterns[actionPointer].methodCall);
     }
 

@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 983342331254441637}
   - component: {fileID: 4404914774328017303}
   - component: {fileID: 355913092260755591}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: EnemyTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54,8 +54,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  behaviors: []
+  stateOverride: 0
   motionInput: {x: 0, y: 0}
+  continuousBehaviors: []
 --- !u!114 &7754484450617177792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,8 +101,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fc8e7b4473a15489799dcf7f7d0bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   health: 10
   useNativeDeath: 1
+  flashTimer: 0.125
 --- !u!114 &9172028429638066328
 MonoBehaviour:
   m_ObjectHideFlags: 0
