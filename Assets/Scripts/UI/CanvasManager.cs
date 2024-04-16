@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// DEPRECATED: DO NOT USE
 public enum UIType {VICTORY, LOSS};
 public class CanvasManager : MonoBehaviour
 {
@@ -9,7 +10,6 @@ public class CanvasManager : MonoBehaviour
     private Dictionary<UIType, GameObject> UIRef = new Dictionary<UIType, GameObject>();
     void Awake()
     {
-        GameManager.Instance.Canvas = this;
         foreach (UIObject UIObj in UIElements) {
             UIRef[UIObj.name] = UIObj.screenObject;
         }

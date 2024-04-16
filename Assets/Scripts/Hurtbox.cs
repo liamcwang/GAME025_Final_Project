@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Hurtbox : MonoBehaviour
 {
-    public float health = 1f;
+    public float maxHealth = 10f;
+    public float health = 10f;
     [SerializeField] bool useNativeDeath = true;
     private Vector2 bounceForce = Vector2.zero;
 
-    
+    public event Action onTakeDamage;
 
     [SerializeField] float flashTimer = 0.125f;
     private static Material flashMGlobal;
@@ -56,6 +58,7 @@ public class Hurtbox : MonoBehaviour
             StartCoroutine(DamageFlash(flashTimer));
         }
 
+        onTakeDamage?.Invoke();
         
         if (useNativeDeath && health < 0.01) {
             Die();

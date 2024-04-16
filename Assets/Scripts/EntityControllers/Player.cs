@@ -18,13 +18,18 @@ public class Player: MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.Player = this;
+        GameManager.Player = this;
         movement = GetComponent<Movement>();
         anim = GetComponent<Animator>();
         attack = GetComponent<Attack>();
         hurtbox = GetComponent<Hurtbox>();
+        hurtbox.onTakeDamage += HealthChanged;
     }
 
+    private void Start()
+    {
+        HealthChanged();
+    }
 
     // Update is called once per frame
     void Update()
@@ -51,6 +56,11 @@ public class Player: MonoBehaviour
         
     }
 
+    public void HealthChanged() {
+        float healthRatio = hurtbox.health / hurtbox.maxHealth;
+        GameManager.Canvas.UpdateHealth(healthRatio);
+    }
+
     public void Die() {
         StartCoroutine(DeathSequence());
     }
@@ -69,7 +79,7 @@ public class Player: MonoBehaviour
     IEnumerator DeathSequence() {
         anim.Play("death");
         yield return new WaitForSeconds(2f);
-        GameManager.RestartGame();
+        GameManager.Defeat();
     }
 }
 

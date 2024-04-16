@@ -15,13 +15,13 @@ public class PlayerCamera : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.Instance.PlayerCamera = this;
+        GameManager.PlayerCamera = this;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameManager.Instance.Player.gameObject;
+        player = GameManager.Player.gameObject;
         newPosition.z = Z_POS;
     }
 
