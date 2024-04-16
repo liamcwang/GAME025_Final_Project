@@ -19,6 +19,7 @@ public class Boss : MonoBehaviour
     private int currentMethodPointer;
     private Player playerRef;
     private object[][] currentMethodArgs = new object[Enum.GetNames(typeof(Methods)).Length][];
+    private Vector3 aimVector = Vector3.zero;
 
     private void Awake()
     {
@@ -97,16 +98,18 @@ public class Boss : MonoBehaviour
     }
 
     IEnumerator ShootAtPlayer(int numShots, float shootDelay) {
-        Vector3 aimVector = Vector3.zero;
         Quaternion aimRotation = Quaternion.identity;
-        Vector2 heading = Vector2.zero;
+        Vector3 heading = Vector2.zero;
 
 
         for (int i = 0; i< numShots; i++) {
             heading.x = playerRef.transform.position.x - transform.position.x;
             heading.y = playerRef.transform.position.y - transform.position.y;
-
-            aimVector.z = (float) (Mathf.Atan2(heading.y, heading.x) * Mathf.Rad2Deg);
+            float hypo = heading.x * heading.x + heading.y * heading.y;
+            hypo = Mathf.Sqrt(hypo);
+            heading.z = Mathf.Acos(heading.y/hypo);
+            aimVector.z = (float) (heading.z * Mathf.Rad2Deg);
+            aimVector.z = heading.x > 0 ? -aimVector.z : aimVector.z;
             Debug.Log($"{aimVector.z}");
 
             aimRotation.eulerAngles = aimVector;
@@ -117,6 +120,25 @@ public class Boss : MonoBehaviour
         }
     }
 
+    #if UNITY_EDITOR
+    Vector2 gizmosCubeSize = new Vector2(0.4f, 0.4f);
+    Vector3 firingDirection = Vector3.zero;
+
+    /// <summary>
+    /// To draw where the projectiles start from
+    /// and the direction the projectiles will go
+    /// </summary>
+    void OnDrawGizmos() {
+
+        Gizmos.color = Color.magenta;
+
+        double radian = (aimVector.z) * Math.PI/180;
+        firingDirection.x = transform.position.x - (float) Math.Sin(radian);
+        firingDirection.y = transform.position.y + (float) Math.Cos(radian);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, aimVector);
+    }
+    #endif
 }
 
 [System.Serializable]
