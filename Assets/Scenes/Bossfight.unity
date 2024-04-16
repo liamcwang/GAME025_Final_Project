@@ -9099,7 +9099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fc8e7b4473a15489799dcf7f7d0bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
+  maxHealth: 10
   health: 10
   useNativeDeath: 1
   flashTimer: 0.125
@@ -9239,7 +9239,7 @@ Transform:
   m_GameObject: {fileID: 6109350161274889866}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.08, y: 7.66, z: 0}
+  m_LocalPosition: {x: 0.13, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9320,33 +9320,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actionPatterns:
-  - name: Move1
-    methodCall:
-      method: 0
-      arguments:
-      - 0
-      - 0
-      - 4
   - name: Wait
     methodCall:
       method: 2
       arguments:
       - 10
-      - 0.2
-  - name: Move2
-    methodCall:
-      method: 0
-      arguments:
-      - -11.08
-      - 7.66
-      - 2
-  - name: Move3
-    methodCall:
-      method: 0
-      arguments:
-      - 11.08
-      - 7.66
-      - 2
+      - 1
 --- !u!114 &9014120870411874135
 MonoBehaviour:
   m_ObjectHideFlags: 0

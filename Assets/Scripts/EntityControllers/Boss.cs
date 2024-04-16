@@ -108,8 +108,8 @@ public class Boss : MonoBehaviour
             float hypo = heading.x * heading.x + heading.y * heading.y;
             hypo = Mathf.Sqrt(hypo);
             heading.z = Mathf.Acos(heading.y/hypo);
-            aimVector.z = (float) (heading.z * Mathf.Rad2Deg);
-            aimVector.z = heading.x > 0 ? -aimVector.z : aimVector.z;
+            aimVector.z = (float) (heading.z * 180/Mathf.PI);
+            aimVector.z = heading.x > 0 ? -aimVector.z : aimVector.z; // correct the angle based on the direction
             Debug.Log($"{aimVector.z}");
 
             aimRotation.eulerAngles = aimVector;
@@ -136,7 +136,7 @@ public class Boss : MonoBehaviour
         firingDirection.x = transform.position.x - (float) Math.Sin(radian);
         firingDirection.y = transform.position.y + (float) Math.Cos(radian);
         Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, aimVector);
+        Gizmos.DrawLine(transform.position, firingDirection);
     }
     #endif
 }
