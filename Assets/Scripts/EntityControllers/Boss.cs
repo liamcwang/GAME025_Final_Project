@@ -19,11 +19,13 @@ public class Boss : EntityController
     private Player playerRef;
     private object[][] currentMethodArgs = new object[Enum.GetNames(typeof(Methods)).Length][]; // create an array to reference args
     private Vector3 aimVector = Vector3.zero;
+    [SerializeField] float turnAroundTimer = 1f;
 
     private Rigidbody2D rb;
     private ProjectileSpawner projectileSpawner;
     Movement movement;
     ReactiveAttack reactAttack;
+    Animator anim;
 
     private void Awake()
     {
@@ -36,6 +38,7 @@ public class Boss : EntityController
         projectileSpawner = GetComponent<ProjectileSpawner>();
         movement = GetComponent<Movement>();
         reactAttack = GetComponent<ReactiveAttack>();
+        anim = GetComponent<Animator>();
 
         playerRef = GameManager.Player;
         interpretCall(actionPatterns[actionPointer].methodCall);
@@ -123,13 +126,38 @@ public class Boss : EntityController
     }
 
     public bool MoveAndAttack() {
-        heading.x = GameManager.Player.transform.position.x - transform.position.x;
-        motionInput.x = heading.x > 0.1 ? 1 : -1;
-        movement.Move(motionInput);
-        reactAttack.Act();
-
         waitTimer -= Time.fixedDeltaTime;
-        return waitTimer <= 0.01f;
+        bool actionFinished = waitTimer <= 0.01f;
+
+        if (!actionFinished) {
+            if (stateOverride) return false;
+            ActionState newState = ActionState.NONE;
+            heading.x = GameManager.Player.transform.position.x - transform.position.x;
+            float newMotion = heading.x > 0.1 ? 1f : -1f;
+            if (newMotion != motionInput.x) {
+                StartCoroutine(overrideTimer(turnAroundTimer));
+            } 
+            motionInput.x = newMotion;
+            
+            reactAttack.Act();
+
+            if (!stateOverride)  {
+                newState = movement.Move(motionInput);
+                state = newState;
+                anim.SetInteger("ActionState", (int) state); 
+            }
+        }
+        
+
+        return actionFinished;
+    }
+
+    IEnumerator overrideTimer(float timer) {
+        Debug.Log($"override!");
+        stateOverride = true;
+        anim.SetInteger("ActionState", (int) ActionState.IDLE);
+        yield return new WaitForSeconds(timer);
+        stateOverride = false;
     }
 
     IEnumerator ShootAtPlayer(int numShots, float shootDelay) {
