@@ -12,6 +12,8 @@ public class Player: EntityController
     private Animator anim;
     private Movement movement;
     private Attack attack;
+    private Dash dash;
+    private SpriteRenderer sprite;
 
     private void Awake()
     {
@@ -20,6 +22,8 @@ public class Player: EntityController
         anim = GetComponent<Animator>();
         attack = GetComponent<Attack>();
         hurtbox = GetComponent<Hurtbox>();
+        dash = GetComponent<Dash>();
+        sprite = GetComponent<SpriteRenderer>();
         hurtbox.onTakeDamage += HealthChanged;
     }
 
@@ -41,11 +45,16 @@ public class Player: EntityController
         }
 
         if (newState == ActionState.NONE) {
-            motionInput.x = Input.GetAxis("Horizontal");
+            motionInput.x = Input.GetAxis("Left") + Input.GetAxis("Right");
             motionInput.y = Input.GetButtonDown("Jump") ? 1 : 0;
-            newState = movement.Move(motionInput);
             
+            if (motionInput.x != 0 && Input.GetButtonDown("Dash")) {
+                dash.Act(motionInput.x);
+            } else {
+                newState = movement.Move(motionInput);
+            }
         }
+        
 
         if (newState != ActionState.NONE) state = newState;
 

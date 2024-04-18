@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 3556910762366904253}
   - component: {fileID: 1064301359575691256}
   - component: {fileID: 309058395088770722}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Character
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -57,7 +57,6 @@ MonoBehaviour:
   stateOverride: 0
   motionInput: {x: 0, y: 0}
   hurtbox: {fileID: 0}
-  sensitivity: 3
 --- !u!114 &5281946286792319434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,7 +91,7 @@ MonoBehaviour:
   hitBoxActive: 1
   ignoreMask:
     serializedVersion: 2
-    m_Bits: 4
+    m_Bits: 132
   bounceAttack: 0
   bounceForce: {x: 10, y: 10}
   bounceTimer: 0.5
@@ -108,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fc8e7b4473a15489799dcf7f7d0bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isActive: 1
+  maxHealth: 10
   health: 10
   useNativeDeath: 0
   flashTimer: 0.125
@@ -124,8 +123,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdb7eeb834e568e4c8cf4564bd290242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dashSpeed: 20
-  dashTimer: 0.5
+  dashSpeed: 30
+  dashTimer: 0.25
+  dashLimit: 1
 --- !u!95 &8223050079751009363
 Animator:
   serializedVersion: 5

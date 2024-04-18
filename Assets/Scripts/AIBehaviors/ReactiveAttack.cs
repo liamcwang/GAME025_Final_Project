@@ -27,7 +27,7 @@ public class ReactiveAttack : AIBehavior
                 StartCoroutine(ReactTimer());
             }
         }
-        
+    
     }
 
     IEnumerator ReactTimer() {

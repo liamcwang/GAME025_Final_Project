@@ -4,22 +4,26 @@ using UnityEngine;
 using System.Reflection;
 using System;
 
-public class Boss : MonoBehaviour
+public class Boss : EntityController
 {
-    public enum Methods {LERP_MOVE, WAIT, SHOOT_PLAYER};
+    public enum Methods {TELEPORT, WAIT, SHOOT_PLAYER, MOVE_AND_ATTACK};
 
     public ActionPattern[] actionPatterns;
     private float waitTimer;
     private int actionPointer;
     private Vector2 destVector = Vector2.zero;
     private Vector3 heading = Vector3.zero;
-    private Rigidbody2D rb;
-    private ProjectileSpawner projectileSpawner;
+    
     private MethodInfo currentMethod;
     private int currentMethodPointer;
     private Player playerRef;
-    private object[][] currentMethodArgs = new object[Enum.GetNames(typeof(Methods)).Length][];
+    private object[][] currentMethodArgs = new object[Enum.GetNames(typeof(Methods)).Length][]; // create an array to reference args
     private Vector3 aimVector = Vector3.zero;
+
+    private Rigidbody2D rb;
+    private ProjectileSpawner projectileSpawner;
+    Movement movement;
+    ReactiveAttack reactAttack;
 
     private void Awake()
     {
@@ -30,11 +34,14 @@ public class Boss : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         projectileSpawner = GetComponent<ProjectileSpawner>();
+        movement = GetComponent<Movement>();
+        reactAttack = GetComponent<ReactiveAttack>();
+
         playerRef = GameManager.Player;
         interpretCall(actionPatterns[actionPointer].methodCall);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         bool result = (bool) currentMethod.Invoke(this, currentMethodArgs[currentMethodPointer]);
         if (result) {
@@ -43,29 +50,35 @@ public class Boss : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Method to call a specific set of arbitrary arguments defined in Boss
+    /// </summary>
+    /// <param name="methodCall"></param>
     private void interpretCall(MethodCall methodCall) {
         // MethodInfo methodInfo;
         object[] args = new object[methodCall.arguments.Length];
         switch(methodCall.method) {
-            case Methods.LERP_MOVE:
+            // Teleport(float x, float y)
+            case Methods.TELEPORT:
                 for (int i = 0; i < methodCall.arguments.Length; i++) {
                     args[i] = Convert.ToSingle(methodCall.arguments[i]);
                 }
 
                 destVector.x = (float) args[0];
                 destVector.y = (float) args[1];
-                currentMethod = this.GetType().GetMethod("MoveToPoint");
-                currentMethodPointer = (int) Methods.LERP_MOVE;
-                currentMethodArgs[currentMethodPointer] = new object[]{args[2]}; // run from it, dread it, the GC comes for us all
+                currentMethod = this.GetType().GetMethod("Teleport");
+                currentMethodPointer = (int) Methods.TELEPORT;
                 break;
+            
+            // Wait(float timer)
             case Methods.WAIT:
                 waitTimer = Convert.ToSingle(methodCall.arguments[0]);
                 currentMethod = this.GetType().GetMethod("Wait");
                 currentMethodPointer = (int) Methods.WAIT;
                 break;
+
+            // ShootPlayer(int numShots, float shootDelay)
             case Methods.SHOOT_PLAYER:
-
-
                 int numShots = (int) int.Parse(methodCall.arguments[0]);
                 float shootDelay = (float) Convert.ToSingle(methodCall.arguments[1]);
                 StartCoroutine(ShootAtPlayer(numShots, shootDelay));
@@ -73,6 +86,13 @@ public class Boss : MonoBehaviour
                 waitTimer = numShots * shootDelay; 
                 currentMethod = this.GetType().GetMethod("Wait");
                 currentMethodPointer = (int) Methods.WAIT;
+                break;
+            
+            // MoveAndAttack(float timer)
+            case Methods.MOVE_AND_ATTACK:
+                waitTimer = Convert.ToSingle(methodCall.arguments[0]);
+                currentMethod = this.GetType().GetMethod("MoveAndAttack");
+                currentMethodPointer = (int) Methods.MOVE_AND_ATTACK;
                 break;
             default:
                 break;
@@ -92,8 +112,23 @@ public class Boss : MonoBehaviour
         return distance <= 0.1f;
     }
 
+    public bool Teleport() {
+        rb.MovePosition(destVector);
+        return true;
+    }
+
     public bool Wait() {
-        waitTimer -= Time.deltaTime;
+        waitTimer -= Time.fixedDeltaTime;
+        return waitTimer <= 0.01f;
+    }
+
+    public bool MoveAndAttack() {
+        heading.x = GameManager.Player.transform.position.x - transform.position.x;
+        motionInput.x = heading.x > 0.1 ? 1 : -1;
+        movement.Move(motionInput);
+        reactAttack.Act();
+
+        waitTimer -= Time.fixedDeltaTime;
         return waitTimer <= 0.01f;
     }
 
