@@ -34,7 +34,11 @@ public class CanvasController : MonoBehaviour
     }
 
     public void RestartGame() {
+        GameManager.RestartGame();
+    }
 
+    public void MainMenu() {
+        GameManager.ToMainMenu();
     }
 
     public void QuitGame() {
