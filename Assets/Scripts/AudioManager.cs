@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     void Start()
     {
         // Get the AudioSource component attached to this GameObject
-        audioSource = GetComponent<AudioSource>();
+        audioSource = GameManager.PlayerCamera.GetComponent<AudioSource>();
 
         // Play the level music when the game starts
         PlayLevelMusic();
@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player enters the trigger zone
-        if (other.CompareTag("musicmtrigger"))
+        if (other.tag == "musictrigger")
         {
 
             Debug.Log("Player exited the trigger zone.");
