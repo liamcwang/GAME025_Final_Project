@@ -15,6 +15,8 @@ public class IntervalProjectileAttack : AIBehavior
 
     SpriteRenderer spriteRenderer;
     ProjectileSpawner projectileSpawner;
+    Animator anim;
+    bool hasShootAnim = false;
     private Vector2 spawnPoint = Vector2.zero;
     private Vector3 fireAngleVector = Vector3.zero; 
     private Quaternion spawnDirection = Quaternion.identity;
@@ -23,6 +25,9 @@ public class IntervalProjectileAttack : AIBehavior
     void Start() {
         spriteRenderer = GetComponent<SpriteRenderer>();
         projectileSpawner = GetComponent<ProjectileSpawner>();
+        anim = GetComponent<Animator>();
+        int shootID = Animator.StringToHash("shoot");
+        hasShootAnim = anim.HasState(0, shootID);
     }
 
     public override void Act() {
@@ -40,6 +45,9 @@ public class IntervalProjectileAttack : AIBehavior
             yield return new WaitForSeconds(projectileTimer);
             // bc of Unity, the angles must be set in a 3D vector
             // then transformed back into Quaternion, fun
+            if (hasShootAnim) {
+                anim.Play("shoot");
+            }
             fireAngleVector.z = spriteRenderer.flipX ? shootAngle : -shootAngle;
             spawnDirection.eulerAngles = fireAngleVector;
             xDir = spriteRenderer.flipX ? -1: 1;
@@ -68,8 +76,8 @@ public class IntervalProjectileAttack : AIBehavior
         Gizmos.DrawCube(spawnPoint, gizmosCubeSize);
 
         double radian = (fireAngleVector.z) * Math.PI/180;
-        firingDirection.x = transform.position.x - (float) Math.Sin(radian);
-        firingDirection.y = transform.position.y + (float) Math.Cos(radian);
+        firingDirection.x = spawnPoint.x - (float) Math.Sin(radian);
+        firingDirection.y = spawnPoint.y + (float) Math.Cos(radian);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(spawnPoint, firingDirection);
     }
