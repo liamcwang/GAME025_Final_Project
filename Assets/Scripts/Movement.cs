@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
     [HideInInspector] public int jumpCount {get; private set;} = 0;
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
-    [SerializeField] bool InvertFlipX = false;
+    [SerializeField] bool InvertFlipX = false; // this may need to be put into the enemy script, and made into a method
     private float jumpForce;
     private Vector2 motionVector = Vector2.zero;
 
@@ -63,16 +63,20 @@ public class Movement : MonoBehaviour
         else if (rb.velocity.y > 0.01 && jumpCount > 0) 
         {
             motionState = ActionState.JUMPING;
-        } 
-        else 
-        {
-            // reaching this means we've landed
-            jumpCount = 0;
+        } else {
+            
         }
+
 
         return motionState;
 
     }
 
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+            jumpCount = 0;
+        }
+    }
 
 }

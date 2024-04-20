@@ -3,18 +3,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public enum ActionState {IDLE, RUNNING, JUMPING, FALLING, ATTACK, NONE};
-public class Player: MonoBehaviour
+public enum ActionState {IDLE, RUNNING, JUMPING, FALLING, ATTACK, DASH, NONE};
+public class Player: EntityController
 {
     
-    public ActionState state;
-    public bool stateOverride;
     [HideInInspector] public Hurtbox hurtbox;
 
     private Animator anim;
     private Movement movement;
     private Attack attack;
-    private Vector2 motionInput = Vector2.zero;
+    private Dash dash;
+    private SpriteRenderer sprite;
 
     private void Awake()
     {
@@ -23,12 +22,14 @@ public class Player: MonoBehaviour
         anim = GetComponent<Animator>();
         attack = GetComponent<Attack>();
         hurtbox = GetComponent<Hurtbox>();
+        dash = GetComponent<Dash>();
+        sprite = GetComponent<SpriteRenderer>();
         hurtbox.onTakeDamage += HealthChanged;
     }
 
     private void Start()
     {
-        HealthChanged();
+
     }
 
     // Update is called once per frame
@@ -44,11 +45,16 @@ public class Player: MonoBehaviour
         }
 
         if (newState == ActionState.NONE) {
-            motionInput.x = Input.GetAxis("Horizontal");
+            motionInput.x = Input.GetAxis("Left") + Input.GetAxis("Right");
             motionInput.y = Input.GetButtonDown("Jump") ? 1 : 0;
-            newState = movement.Move(motionInput);
             
+            if (motionInput.x != 0 && Input.GetButtonDown("Dash")) {
+                dash.Act(motionInput.x);
+            } else {
+                newState = movement.Move(motionInput);
+            }
         }
+        
 
         if (newState != ActionState.NONE) state = newState;
 

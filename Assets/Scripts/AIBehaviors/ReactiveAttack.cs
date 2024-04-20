@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ReactiveAttack : AIBehavior
 {
+    public override BehaviorType behaviorType {get {return BehaviorType.CONTINUOUS;}}
     [SerializeField] float reactTimer;
     bool canAttack;
     Attack attack;
@@ -16,7 +17,7 @@ public class ReactiveAttack : AIBehavior
         canAttack = true;    
     }
 
-    public override void Act(Enemy e)
+    public override void Act()
     {
         if (canAttack) {
             bool playerFound = attack.SimulateCast();
@@ -26,7 +27,7 @@ public class ReactiveAttack : AIBehavior
                 StartCoroutine(ReactTimer());
             }
         }
-        
+    
     }
 
     IEnumerator ReactTimer() {

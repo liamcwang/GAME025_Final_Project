@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Patrol : AIBehavior
 {
+    public override BehaviorType behaviorType {get {return BehaviorType.CONTINUOUS;}}
     [SerializeField] Vector2[] patrolPoints;
     [SerializeField] float waitTimer = 1f;
     bool patrolActive = true;
@@ -13,15 +14,18 @@ public class Patrol : AIBehavior
     Vector2 currentPos = Vector2.zero;
     Vector2 heading = Vector2.zero;
 
-    Vector2 gizmosCubeSize = new Vector2(0.5f, 0.5f);
+    
+
+    EntityController ec;
 
     // Start is called before the first frame update
     void Start()
     {
+        ec = GetComponent<EntityController>();
         goal = 0;
     }
 
-    public override void Act(Enemy e)
+    public override void Act()
     {
         currentPos = transform.position;
         heading.x = currentPos.x - patrolPoints[goal].x;
@@ -36,9 +40,9 @@ public class Patrol : AIBehavior
         }
 
         if (patrolActive) {
-            e.motionInput.x = (heading.x > 0) ? -1 : 1;
+            ec.motionInput.x = (heading.x > 0) ? -1 : 1;
         } else {
-            e.motionInput.x = 0;
+            ec.motionInput.x = 0;
         }
         
     }
@@ -48,6 +52,8 @@ public class Patrol : AIBehavior
         patrolActive = true;
     }
 
+    #if UNITY_EDITOR
+    Vector2 gizmosCubeSize = new Vector2(0.5f, 0.5f);
     void OnDrawGizmosSelected()
     {
         if (patrolPoints.Length == 0) return;
@@ -63,4 +69,5 @@ public class Patrol : AIBehavior
             prev = next;
         }
     }
+    #endif
 }

@@ -18,6 +18,7 @@ public class CanvasController : MonoBehaviour
     private void Start()
     {
         canvasView = GetComponent<CanvasView>();
+        GameManager.Player.HealthChanged(); // not good practice to do this but...
     }
 
     public void VictoryScreen() {

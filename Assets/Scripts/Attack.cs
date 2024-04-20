@@ -15,7 +15,7 @@ public class Attack : MonoBehaviour
     Vector2 visualDest = Vector2.zero;
     SpriteRenderer sprite;
     Animator anim;
-    Player player;
+    EntityController entity;
 
     [SerializeField]bool hitBoxActive = false;
     List<int> hitRecord = new List<int>();
@@ -30,11 +30,12 @@ public class Attack : MonoBehaviour
         hitBoxActive = false;
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        player = GetComponent<Player>();
+        entity = GetComponent<EntityController>();
     }
 
     public void Act()
     {
+        entity.stateOverride = true;
         hitRecord.Clear();
         anim.Play("attack");
     }
@@ -99,10 +100,14 @@ public class Attack : MonoBehaviour
         hitBoxActive = true;
     }
 
+    /// <summary>
+    /// State override occurs during the end frames of the animation,
+    /// Place it at the end of the animation clip where the animation should end
+    /// </summary>
     public void deactivate() {
         hitBoxActive = false;
-        if (player != null) {
-            player.stateOverride = false;
+        if (entity != null) {
+            entity.stateOverride = false;
         }
         
     }
@@ -112,12 +117,16 @@ public class Attack : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
-        boxSize3D.x = boxSize.x;
-        boxSize3D.y = boxSize.y;
+        if (!Application.isPlaying) {
+            boxSize3D.x = boxSize.x;
+            boxSize3D.y = boxSize.y;
+        }
         Gizmos.color = hitBoxActive ? Color.green : Color.clear;
 
-        visualDest.x = transform.position.x + (offset.x * direction.x);
-        visualDest.y = transform.position.y + offset.y;
+        if (!Application.isPlaying) {
+            visualDest.x = transform.position.x + (offset.x * direction.x);
+            visualDest.y = transform.position.y + offset.y;
+        }
         Gizmos.DrawWireCube(visualDest, boxSize3D);
     }
 }

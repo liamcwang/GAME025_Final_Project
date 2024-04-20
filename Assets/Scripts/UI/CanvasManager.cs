@@ -26,7 +26,7 @@ public class CanvasManager : MonoBehaviour
         GameObject gObj = UIRef[key];
         gObj.SetActive(isActive);
     }
-
+    
     public void WinScreen() {
         setScreen(UIType.VICTORY, true);
     }
