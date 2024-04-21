@@ -12,11 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
   m_Name: Fountain
   m_EditorClassIdentifier: 
-  m_AnimatedSprites:
-  - {fileID: 21300002, guid: ff5f7226ed4a9ad4c9253b92fad091c1, type: 3}
-  - {fileID: 21300004, guid: ff5f7226ed4a9ad4c9253b92fad091c1, type: 3}
-  - {fileID: 21300006, guid: ff5f7226ed4a9ad4c9253b92fad091c1, type: 3}
-  - {fileID: 21300008, guid: ff5f7226ed4a9ad4c9253b92fad091c1, type: 3}
+  m_AnimatedSprites: []
   m_MinSpeed: 1
   m_MaxSpeed: 1
   m_AnimationStartTime: 0
