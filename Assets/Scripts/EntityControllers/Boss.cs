@@ -26,6 +26,7 @@ public class Boss : EntityController
     Movement movement;
     ReactiveAttack reactAttack;
     Animator anim;
+    Hurtbox hurtbox;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class Boss : EntityController
         movement = GetComponent<Movement>();
         reactAttack = GetComponent<ReactiveAttack>();
         anim = GetComponent<Animator>();
+        hurtbox = GetComponent<Hurtbox>();
 
         playerRef = GameManager.Player;
         interpretCall(actionPatterns[actionPointer].methodCall);
@@ -46,11 +48,17 @@ public class Boss : EntityController
 
     private void FixedUpdate()
     {
+        if (hurtbox.health <= 0.1) Die();
         bool result = (bool) currentMethod.Invoke(this, currentMethodArgs[currentMethodPointer]);
         if (result) {
             actionPointer = (actionPointer + 1) % actionPatterns.Length;
             interpretCall(actionPatterns[actionPointer].methodCall);
         }
+    }
+
+    void Die() {
+        GameManager.Victory();
+        hurtbox.Die();
     }
 
     /// <summary>

@@ -81,7 +81,7 @@ public class Hurtbox : MonoBehaviour
         rb.velocity = bounceForce;
     }
 
-    void Die() {
+    public void Die() {
         Destroy(gameObject);
     }
 
