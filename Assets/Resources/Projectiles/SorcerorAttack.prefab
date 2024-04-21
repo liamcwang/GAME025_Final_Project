@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4564120815919922883}
   - component: {fileID: 8554140556954466706}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 134099961066154623}
   - component: {fileID: -2349797622339523751}
   - component: {fileID: 6604523020971547233}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SorcerorAttack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   damage: 1
-  decayTimer: 5
+  decayTimer: 1
   ignoreMask:
     serializedVersion: 2
     m_Bits: 0

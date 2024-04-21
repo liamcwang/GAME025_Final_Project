@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6422509302901890069}
   - component: {fileID: 4250474986044387762}
   - component: {fileID: 439203224808047267}
+  - component: {fileID: 7517590741768409578}
   - component: {fileID: 8223050079751009363}
   - component: {fileID: 7467999868566074897}
   - component: {fileID: 3556910762366904253}
@@ -126,6 +127,23 @@ MonoBehaviour:
   dashSpeed: 30
   dashTimer: 0.25
   dashLimit: 1
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 4
+--- !u!114 &7517590741768409578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38122407360293339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3708f5b67113f2647bebdbf2b738de14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelMusicClip: {fileID: 8300000, guid: 506875d1ff50c7f43963390c1d240e8a, type: 3}
+  bossMusicClip: {fileID: 8300000, guid: 6177a909a342cec4a8de7ea8d83fae0a, type: 3}
 --- !u!95 &8223050079751009363
 Animator:
   serializedVersion: 5
@@ -253,7 +271,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 38122407360293339}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: a7b30e8fbddbd3049a23f0032be398e5, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

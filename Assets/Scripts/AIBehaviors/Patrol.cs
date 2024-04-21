@@ -31,8 +31,8 @@ public class Patrol : AIBehavior
         heading.x = currentPos.x - patrolPoints[goal].x;
         heading.y = currentPos.y - patrolPoints[goal].y;
 
-        float distance = heading.x * heading.x;
-        distance = Mathf.Sqrt(distance);
+        float distance = heading.x * heading.x; // this will change if the points become xy dependent
+        distance = Mathf.Sqrt(distance); 
         if (distance < 0.1f) {
             goal = (goal + 1) % (patrolPoints.Length);
             patrolActive = false;

@@ -8,6 +8,8 @@ public class Dash : MonoBehaviour
     public float dashTimer = 0.25f;
     public int dashLimit = 1;
     private int dashCount = 0;
+    public LayerMask ignoreMask = Physics2D.IgnoreRaycastLayer;
+    private LayerMask[] defaultMasks;
 
     Hurtbox hurtbox;
     Animator anim;
@@ -23,6 +25,11 @@ public class Dash : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         entity = GetComponent<EntityController>();
         colliders = GetComponents<Collider2D>();
+        defaultMasks = new LayerMask[colliders.Length];
+        for (int i =0; i < colliders.Length; i++) {
+            defaultMasks[i] = colliders[i].excludeLayers;
+        }
+
     }
     // TODO: Fix sprite being able to dash backwards
     public void Act(float horizontalInput)
@@ -37,7 +44,7 @@ public class Dash : MonoBehaviour
             dashCount++;
             
             foreach (Collider2D coll in colliders) {
-                coll.enabled = false;
+                coll.excludeLayers = coll.excludeLayers | ignoreMask;
             }
             rb.velocity = motionVector;
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
@@ -52,8 +59,8 @@ public class Dash : MonoBehaviour
         yield return new WaitForSeconds(dashTimer);
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         entity.stateOverride = false;
-        foreach (Collider2D coll in colliders) {
-            coll.enabled = true;
+        for (int i =0; i < colliders.Length; i++) {
+            colliders[i].excludeLayers = defaultMasks[i];
         }
     }
 

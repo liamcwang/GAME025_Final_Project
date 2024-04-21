@@ -20,7 +20,7 @@ public class AudioManager : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         // Check if the player enters the trigger zone
-        if (other.tag == "musictrigger")
+        if (other.gameObject.CompareTag("musictrigger"))
         {
 
             Debug.Log("Player exited the trigger zone.");
