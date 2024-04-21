@@ -8,6 +8,8 @@ public class Boss : EntityController
 {
     public enum Methods {TELEPORT, WAIT, SHOOT_PLAYER, MOVE_AND_ATTACK};
 
+    [SerializeField] float turnAroundTimer = 1f;
+
     public ActionPattern[] actionPatterns;
     private float waitTimer;
     private int actionPointer;
@@ -19,13 +21,13 @@ public class Boss : EntityController
     private Player playerRef;
     private object[][] currentMethodArgs = new object[Enum.GetNames(typeof(Methods)).Length][]; // create an array to reference args
     private Vector3 aimVector = Vector3.zero;
-    [SerializeField] float turnAroundTimer = 1f;
 
     private Rigidbody2D rb;
     private ProjectileSpawner projectileSpawner;
     Movement movement;
     ReactiveAttack reactAttack;
     Animator anim;
+    Hurtbox hurtbox;
 
     private void Awake()
     {
@@ -39,6 +41,7 @@ public class Boss : EntityController
         movement = GetComponent<Movement>();
         reactAttack = GetComponent<ReactiveAttack>();
         anim = GetComponent<Animator>();
+        hurtbox = GetComponent<Hurtbox>();
 
         playerRef = GameManager.Player;
         interpretCall(actionPatterns[actionPointer].methodCall);
@@ -46,11 +49,17 @@ public class Boss : EntityController
 
     private void FixedUpdate()
     {
+        if (hurtbox.health <= 0.1) Die();
         bool result = (bool) currentMethod.Invoke(this, currentMethodArgs[currentMethodPointer]);
         if (result) {
             actionPointer = (actionPointer + 1) % actionPatterns.Length;
             interpretCall(actionPatterns[actionPointer].methodCall);
         }
+    }
+
+    void Die() {
+        GameManager.Victory();
+        hurtbox.Die();
     }
 
     /// <summary>
@@ -134,6 +143,11 @@ public class Boss : EntityController
             ActionState newState = ActionState.NONE;
             heading.x = GameManager.Player.transform.position.x - transform.position.x;
             float newMotion = heading.x > 0.1 ? 1f : -1f;
+
+            // prevent the boss from getting too close
+            float distance = heading.x < 0 ? -heading.x : heading.x;
+            newMotion = distance < 2f ? 0 : newMotion;
+
             if (newMotion != motionInput.x) {
                 StartCoroutine(overrideTimer(turnAroundTimer));
             } 

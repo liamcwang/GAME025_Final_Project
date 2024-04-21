@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 6422509302901890069}
   - component: {fileID: 4250474986044387762}
   - component: {fileID: 439203224808047267}
+  - component: {fileID: 7517590741768409578}
+  - component: {fileID: 8469743396480739092}
   - component: {fileID: 8223050079751009363}
   - component: {fileID: 7467999868566074897}
   - component: {fileID: 3556910762366904253}
@@ -126,6 +128,41 @@ MonoBehaviour:
   dashSpeed: 30
   dashTimer: 0.25
   dashLimit: 1
+  ignoreMask:
+    serializedVersion: 2
+    m_Bits: 68
+--- !u!114 &7517590741768409578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38122407360293339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3708f5b67113f2647bebdbf2b738de14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelMusicClip: {fileID: 8300000, guid: 506875d1ff50c7f43963390c1d240e8a, type: 3}
+  bossMusicClip: {fileID: 8300000, guid: 6177a909a342cec4a8de7ea8d83fae0a, type: 3}
+--- !u!114 &8469743396480739092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38122407360293339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6162c0d8fd519104cb81cf0180e20288, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boxSize: {x: 0.69, y: 0.13}
+  offset: {x: -0.11, y: -1.05}
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 8
+  touchingGround: 0
 --- !u!95 &8223050079751009363
 Animator:
   serializedVersion: 5
@@ -185,8 +222,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 2569869
-  m_SortingLayer: 0
+  m_SortingLayerID: 1894588077
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -3318188226485093758, guid: ae72133dacba6ec4eb33ecde48f50e56, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -208,7 +245,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 38122407360293339}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: be1634e995ec50644b919a8bc6e272d6, type: 2}
+  m_Material: {fileID: 6200000, guid: a7b30e8fbddbd3049a23f0032be398e5, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

@@ -50,6 +50,18 @@ public class GameManager
         SceneManager.LoadScene(sceneName);
     }
 
+    public static void StartGame() {
+        SceneManager.LoadScene(1);
+    }
+
+    public static void ToMainMenu() {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public static void Credits() {
+        
+    }
+
     public static void Victory(){
         Canvas.VictoryScreen();
     }

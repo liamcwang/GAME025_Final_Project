@@ -8,6 +8,8 @@ public class Dash : MonoBehaviour
     public float dashTimer = 0.25f;
     public int dashLimit = 1;
     private int dashCount = 0;
+    public LayerMask ignoreMask = Physics2D.IgnoreRaycastLayer;
+    private LayerMask[] defaultMasks;
 
     Hurtbox hurtbox;
     Animator anim;
@@ -15,6 +17,7 @@ public class Dash : MonoBehaviour
     EntityController entity;
     Vector2 motionVector = Vector2.zero;
     Collider2D[] colliders;
+    GroundCheck groundCheck;
     
 
     void Start() {
@@ -22,11 +25,25 @@ public class Dash : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         entity = GetComponent<EntityController>();
+        groundCheck = GetComponent<GroundCheck>();
         colliders = GetComponents<Collider2D>();
+        defaultMasks = new LayerMask[colliders.Length];
+        for (int i =0; i < colliders.Length; i++) {
+            defaultMasks[i] = colliders[i].excludeLayers;
+        }
+
     }
+
+    private void Update()
+    {
+        if (groundCheck.touchingGround) dashCount = 0;
+    }
+    
     // TODO: Fix sprite being able to dash backwards
     public void Act(float horizontalInput)
     {
+        
+
         if (dashCount < dashLimit) {
             entity.stateOverride = true;
 
@@ -37,7 +54,7 @@ public class Dash : MonoBehaviour
             dashCount++;
             
             foreach (Collider2D coll in colliders) {
-                coll.enabled = false;
+                coll.excludeLayers = coll.excludeLayers | ignoreMask;
             }
             rb.velocity = motionVector;
             rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
@@ -52,15 +69,15 @@ public class Dash : MonoBehaviour
         yield return new WaitForSeconds(dashTimer);
         rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         entity.stateOverride = false;
-        foreach (Collider2D coll in colliders) {
-            coll.enabled = true;
+        for (int i =0; i < colliders.Length; i++) {
+            colliders[i].excludeLayers = defaultMasks[i];
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-            dashCount = 0;
-        }
-    }
+    // private void OnCollisionEnter2D(Collision2D other)
+    // {
+    //     if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+    //         dashCount = 0;
+    //     }
+    // }
 }

@@ -12,15 +12,17 @@ public class Movement : MonoBehaviour
     [HideInInspector] public int jumpCount {get; private set;} = 0;
     private Rigidbody2D rb;
     private SpriteRenderer sprite;
-    [SerializeField] bool InvertFlipX = false; // this may need to be put into the enemy script, and made into a method
+    [SerializeField] bool InvertFlipX = false;
     private float jumpForce;
     private Vector2 motionVector = Vector2.zero;
+    private GroundCheck groundCheck;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
+        groundCheck = GetComponent<GroundCheck>();
     }
 
     public ActionState Move(Vector2 motionInput)
@@ -59,11 +61,13 @@ public class Movement : MonoBehaviour
         if (rb.velocity.y < -0.01) 
         {
             motionState = ActionState.FALLING;
+            jumpCount++;
         } 
         else if (rb.velocity.y > 0.01 && jumpCount > 0) 
         {
             motionState = ActionState.JUMPING;
-        } else {
+        } else if(groundCheck != null) {
+            if (groundCheck.touchingGround) jumpCount = 0;
             
         }
 
@@ -72,11 +76,11 @@ public class Movement : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-            jumpCount = 0;
-        }
-    }
+    // private void OnCollisionEnter2D(Collision2D other)
+    // {
+    //     if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+    //         jumpCount = 0;
+    //     }
+    // }
 
 }

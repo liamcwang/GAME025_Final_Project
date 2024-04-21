@@ -53,8 +53,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7fc8e7b4473a15489799dcf7f7d0bf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  health: 10
+  maxHealth: 20
+  health: 20
   useNativeDeath: 1
   flashTimer: 0.125
 --- !u!114 &8173362385119859865
@@ -72,30 +72,30 @@ MonoBehaviour:
   state: 0
   stateOverride: 0
   motionInput: {x: 0, y: 0}
-  actionPatterns:
-  - name: Wait
-    methodCall:
-      method: 3
-      arguments:
-      - 10
-  - name: Wait
-    methodCall:
-      method: 0
-      arguments:
-      - 10
-      - 0
-  - name: Wait
-    methodCall:
-      method: 3
-      arguments:
-      - 10
-  - name: Wait
-    methodCall:
-      method: 0
-      arguments:
-      - -10
-      - 0
   turnAroundTimer: 1
+  actionPatterns:
+  - name: MoveAndAttack
+    methodCall:
+      method: 3
+      arguments:
+      - 10
+  - name: TeleportLeft
+    methodCall:
+      method: 0
+      arguments:
+      - 81.15
+      - -208.52
+  - name: MoveAndAttack
+    methodCall:
+      method: 3
+      arguments:
+      - 10
+  - name: TeleportRight
+    methodCall:
+      method: 0
+      arguments:
+      - 100.15
+      - -208.52
 --- !u!114 &8369862182361053343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,5 +296,5 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_Size: {x: 2.38, y: 3.42}
+  m_Size: {x: 2.38, y: 3.3}
   m_Direction: 0
