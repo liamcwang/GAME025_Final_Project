@@ -17,6 +17,7 @@ public class Dash : MonoBehaviour
     EntityController entity;
     Vector2 motionVector = Vector2.zero;
     Collider2D[] colliders;
+    GroundCheck groundCheck;
     
 
     void Start() {
@@ -24,6 +25,7 @@ public class Dash : MonoBehaviour
         anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         entity = GetComponent<EntityController>();
+        groundCheck = GetComponent<GroundCheck>();
         colliders = GetComponents<Collider2D>();
         defaultMasks = new LayerMask[colliders.Length];
         for (int i =0; i < colliders.Length; i++) {
@@ -31,9 +33,17 @@ public class Dash : MonoBehaviour
         }
 
     }
+
+    private void Update()
+    {
+        if (groundCheck.touchingGround) dashCount = 0;
+    }
+    
     // TODO: Fix sprite being able to dash backwards
     public void Act(float horizontalInput)
     {
+        
+
         if (dashCount < dashLimit) {
             entity.stateOverride = true;
 
@@ -64,10 +74,10 @@ public class Dash : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
-            dashCount = 0;
-        }
-    }
+    // private void OnCollisionEnter2D(Collision2D other)
+    // {
+    //     if (other.gameObject.layer == LayerMask.NameToLayer("Ground")) {
+    //         dashCount = 0;
+    //     }
+    // }
 }
