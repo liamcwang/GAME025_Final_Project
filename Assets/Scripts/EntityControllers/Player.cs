@@ -84,6 +84,7 @@ public class Player: EntityController
 
     IEnumerator DeathSequence() {
         anim.Play("death");
+        stateOverride = true;
         yield return new WaitForSeconds(2f);
         GameManager.Defeat();
     }
