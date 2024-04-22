@@ -24,6 +24,12 @@ public class GameManager
         get => Instance._canvas;
         set => Instance._canvas = value;
     }
+    private bool _isPaused;
+    public static bool isPaused {
+        get => Instance._isPaused;
+        set => Instance._isPaused = value;
+    }
+
     #endregion
 
 
@@ -48,18 +54,26 @@ public class GameManager
     public static void RestartGame() {
         string sceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);
+        Unpause();
     }
 
     public static void StartGame() {
         SceneManager.LoadScene(1);
+        Unpause();
     }
 
     public static void ToMainMenu() {
         SceneManager.LoadScene("MainMenu");
     }
 
-    public static void Credits() {
-        
+    public static void Pause() {
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public static void Unpause(){
+        Time.timeScale = 1f;
+        isPaused = false;
     }
 
     public static void Victory(){

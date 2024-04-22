@@ -21,6 +21,18 @@ public class CanvasController : MonoBehaviour
         GameManager.Player.HealthChanged(); // not good practice to do this but...
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape)) {
+            canvasView.ToggleUIElement("Pause");
+            if (!GameManager.isPaused) {
+                GameManager.Pause();
+            } else {
+                GameManager.Unpause();
+            }
+        }
+    }
+
     public void VictoryScreen() {
         canvasView.ShowUIElement("Victory");
     }

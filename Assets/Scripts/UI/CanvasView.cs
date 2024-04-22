@@ -47,7 +47,10 @@ public class CanvasView : MonoBehaviour
         UIRef[name].gameObject.SetActive(true);
     }
 
-    
+    public void ToggleUIElement(string name) {
+        GameObject UIObj = UIRef[name].gameObject;
+        UIObj.SetActive(!UIObj.activeSelf);
+    }
 }
 
 [System.Serializable]
