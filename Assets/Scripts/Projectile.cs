@@ -15,6 +15,7 @@ public class Projectile : MonoBehaviour
     public float damage = 1;
     public float decayTimer = 5f;
     public LayerMask ignoreMask;
+    public LayerMask damageMask;
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private SpriteRenderer spriteRenderer;
 

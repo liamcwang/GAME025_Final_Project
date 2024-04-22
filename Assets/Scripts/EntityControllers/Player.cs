@@ -25,6 +25,7 @@ public class Player: EntityController
         dash = GetComponent<Dash>();
         sprite = GetComponent<SpriteRenderer>();
         hurtbox.onTakeDamage += HealthChanged;
+        hurtbox.onHeal += HealthChanged;
     }
 
     private void Start()

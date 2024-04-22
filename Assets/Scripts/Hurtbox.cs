@@ -11,6 +11,7 @@ public class Hurtbox : MonoBehaviour
     private Vector2 bounceForce = Vector2.zero;
 
     public event Action onTakeDamage;
+    public event Action onHeal;
 
     [SerializeField] float flashTimer = 0.125f;
     private static Material flashMGlobal;
@@ -49,6 +50,13 @@ public class Hurtbox : MonoBehaviour
 
         player = GetComponent<Player>();
         flashMat = new Material(flashMatGlobal);
+    }
+
+    public void heal(float n) {
+        float newHealth = health + n;
+        health = newHealth >= maxHealth ? maxHealth : health;
+        
+        onHeal?.Invoke();
     }
 
     public void takeDamage(float n, bool useFlash = true) {
