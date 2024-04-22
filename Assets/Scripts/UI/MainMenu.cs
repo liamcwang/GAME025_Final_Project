@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class MainMenu : MonoBehaviour
 {
+    CanvasView canvasView;
+
+    private void Start()
+    {
+        canvasView = GetComponent<CanvasView>();
+    }
+
     public void StartGame() {
         GameManager.StartGame();
     }

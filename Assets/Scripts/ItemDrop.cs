@@ -4,10 +4,17 @@ using UnityEngine;
 
 public class ItemDrop : MonoBehaviour
 {
-    GameObject item;
+    [SerializeField] GameObject item;
+    Hurtbox hurtbox;
 
-    private void OnDisable()
+    private void Start()
     {
+        hurtbox = GetComponent<Hurtbox>();
+        hurtbox.onDie += spawnHealth;
+    }
+
+    void spawnHealth() {
         Instantiate(item, transform.position, Quaternion.identity);
     }
+    
 }

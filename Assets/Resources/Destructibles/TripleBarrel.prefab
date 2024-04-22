@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 1195156167051397333}
   - component: {fileID: 3868064334727278650}
   - component: {fileID: 5013835253737572145}
+  - component: {fileID: 8708450723197921571}
   m_Layer: 8
   m_Name: TripleBarrel
   m_TagString: Untagged
@@ -264,3 +265,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &8708450723197921571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9146226603427355695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 397e12bb5ecf36c4897624ca8e344966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 884797018761053417, guid: 3b2c32ecb5418014387189fe56986c64, type: 3}

@@ -88,6 +88,9 @@ MonoBehaviour:
   ignoreMask:
     serializedVersion: 2
     m_Bits: 68
+  ignoreDamageMask:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!114 &1730557452881629011
 MonoBehaviour:
   m_ObjectHideFlags: 0

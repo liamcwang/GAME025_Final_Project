@@ -16,6 +16,7 @@ public class Attack : MonoBehaviour
     SpriteRenderer sprite;
     Animator anim;
     EntityController entity;
+    Hurtbox hurtBox;
 
     [SerializeField]bool hitBoxActive = false;
     List<int> hitRecord = new List<int>();
@@ -31,6 +32,9 @@ public class Attack : MonoBehaviour
         sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         entity = GetComponent<EntityController>();
+        hurtBox = GetComponent<Hurtbox>();
+
+        hurtBox.onTakeDamage += deactivate;
     }
 
     public void Act()
@@ -58,6 +62,8 @@ public class Attack : MonoBehaviour
         foreach (RaycastHit2D hit in hits) {
             // Hashmaps seems like a potential solution for quickly storing what got hit
             if (hit.collider != null) {
+                Debug.Log($"hit {hit.collider.name}");
+
                 Hurtbox hurtbox = hit.collider.gameObject.GetComponent<Hurtbox>();
                 if (hurtbox == null) return;
                 
@@ -117,16 +123,14 @@ public class Attack : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
-        if (!Application.isPlaying) {
-            boxSize3D.x = boxSize.x;
-            boxSize3D.y = boxSize.y;
-        }
+        boxSize3D.x = boxSize.x;
+        boxSize3D.y = boxSize.y;
+
         Gizmos.color = hitBoxActive ? Color.green : Color.clear;
 
-        if (!Application.isPlaying) {
-            visualDest.x = transform.position.x + (offset.x * direction.x);
-            visualDest.y = transform.position.y + offset.y;
-        }
+        visualDest.x = transform.position.x + (offset.x * direction.x);
+        visualDest.y = transform.position.y + offset.y;
+
         Gizmos.DrawWireCube(visualDest, boxSize3D);
     }
 }

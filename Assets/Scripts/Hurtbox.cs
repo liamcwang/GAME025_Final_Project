@@ -12,6 +12,7 @@ public class Hurtbox : MonoBehaviour
 
     public event Action onTakeDamage;
     public event Action onHeal;
+    public event Action onDie;
 
     [SerializeField] float flashTimer = 0.125f;
     private static Material flashMGlobal;
@@ -54,7 +55,7 @@ public class Hurtbox : MonoBehaviour
 
     public void heal(float n) {
         float newHealth = health + n;
-        health = newHealth >= maxHealth ? maxHealth : health;
+        health = newHealth >= maxHealth ? maxHealth : newHealth;
         
         onHeal?.Invoke();
     }
@@ -90,6 +91,7 @@ public class Hurtbox : MonoBehaviour
     }
 
     public void Die() {
+        onDie?.Invoke();
         Destroy(gameObject);
     }
 
