@@ -18,6 +18,8 @@ public class BossTrigger : MonoBehaviour
         spawnPoint.x = transform.position.x + spawnOffset.x;
         spawnPoint.y = transform.position.y + spawnOffset.y;
         BossCam.enabled = false;
+        playerEntrance.x = transform.position.x + playerEntranceOffset.x;
+        playerEntrance.y = transform.position.y + playerEntranceOffset.y;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -28,7 +30,7 @@ public class BossTrigger : MonoBehaviour
             other.gameObject.transform.position = playerEntrance;
             GameManager.PlayerCamera.GetComponent<Camera>().enabled = false;
             Instantiate(Boss, spawnPoint, Quaternion.identity);
-
+            GetComponent<Collider2D>().enabled = false;
         }
     }
 

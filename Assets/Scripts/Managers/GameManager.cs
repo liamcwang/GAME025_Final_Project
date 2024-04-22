@@ -64,16 +64,21 @@ public class GameManager
 
     public static void ToMainMenu() {
         SceneManager.LoadScene("MainMenu");
+        Cursor.visible = true;
+
     }
 
     public static void Pause() {
         Time.timeScale = 0f;
         isPaused = true;
+        Cursor.visible = true;
     }
 
     public static void Unpause(){
         Time.timeScale = 1f;
         isPaused = false;
+        Cursor.visible = false;
+
     }
 
     public static void Victory(){
