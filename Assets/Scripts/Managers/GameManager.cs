@@ -29,11 +29,17 @@ public class GameManager
         get => Instance._isPaused;
         set => Instance._isPaused = value;
     }
+    private bool _gameFinished;
+    public static bool gameFinished {
+        get => Instance._gameFinished;
+        set => Instance._gameFinished = value;
+    }
 
     #endregion
 
 
     public GameManager() {
+        _gameFinished = false;
 
     }
 
@@ -54,11 +60,15 @@ public class GameManager
     public static void RestartGame() {
         string sceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(sceneName);
+        gameFinished = false;
+
         Unpause();
     }
 
     public static void StartGame() {
         SceneManager.LoadScene(1);
+        gameFinished = false;
+
         Unpause();
     }
 
@@ -83,10 +93,15 @@ public class GameManager
 
     public static void Victory(){
         Canvas.VictoryScreen();
+        gameFinished = true;
+        Cursor.visible = true;
     }
 
     public static void Defeat(){
         Canvas.DefeatScreen();
+        gameFinished = true;
+
+        Cursor.visible = true;
     }
 
     public static void QuitGame(){
